@@ -1,7 +1,8 @@
 import Header from "../../components/Header";
 import chefImg from '../../assets/chef.svg';
-import { ContentContainer, Hero } from "./styles";
+import { ContentContainer, Hero, Footer } from "./styles";
 import { Link } from 'react-router-dom';
+import { FaGithub } from 'react-icons/fa'
 
 
 export default function Home(){
@@ -28,6 +29,13 @@ export default function Home(){
         </Hero>
           <img src={chefImg} alt="Chefe Cozinhando"/>
       </ContentContainer>
+      <Footer>
+        <span>Made 🥧 João Pedro Silva</span>
+        <div>
+          <FaGithub color="#FFFFFF"/>
+          <a href="https://github.com/joaoD3V" target="_blank" rel="noreferrer">@joaod3v</a>
+        </div>
+      </Footer>
     </>
   );
 }

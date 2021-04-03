@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const ContentContainer = styled.main`
   max-width: 1120px;
   margin: 0 auto;
-  height: calc(100vh - 5rem);
+  height: calc(90vh - 5rem);
 
   display: flex;
   align-items: center;
@@ -53,6 +53,38 @@ export const Hero = styled.section`
 
     &:hover{
       filter: brightness(0.9);
+    }
+  }
+
+`;
+
+export const Footer = styled.footer`
+  max-width: 1120px;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  span{
+    color: var(--white);
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  div{
+    display: flex;
+    align-items: center;
+    a{
+      color: var(--white);
+      margin-left: 0.25rem;
+      text-decoration: none;
+
+      &:hover{
+        color: var(--yellow-200);
+
+      }
+
     }
   }
 
