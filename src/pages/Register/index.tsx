@@ -27,7 +27,7 @@ export default function Register() {
       const result = response.data;
       if (!result.hasOwnProperty('erro')) {
         setIsError(false);
-        history.push("/recepies");
+        history.push("/login");
         
       } else{
         setIsError(true);

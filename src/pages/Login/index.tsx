@@ -22,7 +22,7 @@ export default function Login() {
       const user = response.data;
       if (!user.hasOwnProperty('erro')) {
         setIsError(false);
-        history.push("/recepies");
+        history.push(`/recepies?userid=${user[0].id}`);
       } else{
         setIsError(true);
         setErrorMessage(user.erro);
