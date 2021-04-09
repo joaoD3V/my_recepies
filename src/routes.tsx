@@ -6,6 +6,7 @@ import Register from './pages/Register';
 import Recepies from './pages/Recepies';
 import NewRecepie from './pages/NewRecepie';
 import RecepieInformation from './pages/RecepieInformation';
+import RecepiesSearch from './pages/RecepiesSearch';
 
 const Routes = (): JSX.Element => {
   return (
@@ -15,7 +16,8 @@ const Routes = (): JSX.Element => {
       <Route path="/register" component={Register} />
       <Route path="/recepies" component={Recepies} />
       <Route path="/new-recepie" component={NewRecepie} />
-      <Route path="/recepie-information" component={RecepieInformation} />
+      <Route path="/recepie-information" exact component={RecepieInformation} />
+      <Route path="/recepies-search" exact component={RecepiesSearch} />
     </Switch>
   );
 };

@@ -17,26 +17,32 @@ interface RecepieInterface {
 
 }
 
-interface CategoryInterface{
+interface CategoryInterface {
   id: number;
   nome: string;
 }
 
-export default function Recepies(){
+export default function RecepiesSearch() {
   const [recepies, setRecepies] = useState<RecepieInterface[]>([]);
   const [defaultCategories, setDefaultCategories] = useState<CategoryInterface[]>([]);
   const [search, setSearch] = useState('');
-  
+
   const query = useQuery();
   const history = useHistory();
   const userID = query.get("userid");
+  const nameRecepie = query.get("namerecepie");
+
+  
 
 
   useEffect(() => {
-    api.get(`recepies?userid=${userID}`).then(response => {
-     setRecepies(response.data);
-    })
-  }, [userID]);
+    if(nameRecepie !== null){
+      setSearch(nameRecepie)
+      api.get(`recepies-search?userid=${userID}&namerecepie=${nameRecepie}`).then(response => {
+        setRecepies(response.data);
+      })
+    }
+  }, [userID, nameRecepie]);
 
   useEffect(() => {
     api.get('categories').then(response => {
@@ -44,52 +50,55 @@ export default function Recepies(){
     })
   }, [])
 
-  function convertCategory(id: number){
+  function convertCategory(id: number) {
     const categories = [...defaultCategories];
     const categoryIndex = categories.find(category => category.id === id);
     return categoryIndex?.nome;
   }
 
-  function handleRedirectToRecepieInformation( userID: number, recepieID: number){
+  function handleRedirectToRecepieInformation(userID: number, recepieID: number) {
     history.push(`/recepie-information?userid=${userID}&recepieid=${recepieID}`);
   }
 
-  function handleRedirectToRecepiesSearch(){
-    if(search !== ''){
+  function handleRedirectToRecepiesSearch() {
+    if (search !== '') {
       history.push(`/recepies-search?userid=${userID}&namerecepie=${search}`);
+    } else if(search === ''){
+      history.push(`/recepies?userid=${userID}`);
     }
   }
-  
 
-  if(recepies.length > 0){
+
+  if (recepies.length > 0) {
     return (
       <>
-        <HeaderApp userID={query.get("userid")}/>
+        <HeaderApp userID={query.get("userid")} />
         <ContentContainer>
           <div className="subheader">
             <h1>🍕 Receitas Cadastradas</h1>
             <div className="search">
-              <input 
+              <input
                 type="text"
                 onChange={event => setSearch(event.target.value)}
                 onKeyPress={event => {
-                  if(event.key === 'Enter'){
+                  if (event.key === 'Enter') {
                     handleRedirectToRecepiesSearch();
                   }
                 }}
+                value={search}
                 placeholder="Pesquisar receita..."
               />
-              <FaSearch 
+              <FaSearch
                 className="search-icon"
                 onClick={handleRedirectToRecepiesSearch}
               />
             </div>
           </div>
-  
+
           {recepies.map(recepie => {
             return (
-              <div 
-                className="recepie" 
+              <div
+                className="recepie"
                 onClick={() => handleRedirectToRecepieInformation(Number(query.get("userid")), recepie.id)}
                 key={recepie.id}
               >
@@ -101,7 +110,7 @@ export default function Recepies(){
               </div>
             );
           })}
-  
+
         </ContentContainer>
       </>
     );
@@ -109,29 +118,30 @@ export default function Recepies(){
 
   return (
     <>
-      <HeaderApp userID={query.get("userid")}/>
+      <HeaderApp userID={query.get("userid")} />
       <ContentContainer>
-      <div className="subheader">
-            <h1>🍕 Receitas Cadastradas</h1>
-            <div className="search">
-              <input 
-                type="text"
-                onChange={event => setSearch(event.target.value)}
-                onKeyPress={event => {
-                  if(event.key === 'Enter'){
-                    handleRedirectToRecepiesSearch();
-                  }
-                }}
-                placeholder="Pesquisar receita..."
+        <div className="subheader">
+          <h1>🍕 Receitas Cadastradas</h1>
+          <div className="search">
+            <input
+              type="text"
+              onChange={event => setSearch(event.target.value)}
+              value={search}
+              onKeyPress={event => {
+                if (event.key === 'Enter') {
+                  handleRedirectToRecepiesSearch();
+                }
+              }}
+              placeholder="Pesquisar receita..."
               />
-              <FaSearch 
-                className="search-icon"
-                onClick={handleRedirectToRecepiesSearch}
-              />
-            </div>
+            <FaSearch
+              className="search-icon"
+              onClick={handleRedirectToRecepiesSearch}
+            />
           </div>
+        </div>
 
-        <span>Nenhuma receita cadastrada ainda!</span>
+        <span>Nenhuma receita encontrada!</span>
 
       </ContentContainer>
     </>

@@ -99,6 +99,7 @@ export default function NewRecepie() {
               className="category"
               onChange={event => setCategory(event.target.value.trim())}
             >
+               <option value={0} selected hidden>Escolha uma Categoria</option>
               {defaultCategories.map(category => {
                 return <option value={category.id}>{category.nome}</option>
               })}
@@ -160,18 +161,23 @@ export default function NewRecepie() {
           />
 
           <input 
-            type="text"
-            placeholder="Categoria"
-            className="category"
-            onChange={event => setCategory(event.target.value.trim())}
-          />
-
-          <input 
             type="number"
             placeholder="Número de porções"
             className="portions"
             onChange={event => setPortions(event.target.value.trim())}
           />
+
+          <select 
+            name="Categoria"
+            className="category"
+            onChange={event => setCategory(event.target.value.trim())}
+          >
+            <option value={0} selected hidden>Escolha uma Categoria</option>
+            {defaultCategories.map(category => {
+              return <option value={category.id}>{category.nome}</option>
+            })}
+          </select>
+
         </div>
 
 
@@ -187,13 +193,19 @@ export default function NewRecepie() {
           onChange={event => setPreparation((event.target.value).trim())}
         />
 
-        <button 
-          type="submit"
-        >
-          Criar Receita
-        </button>
-
-        
+        <div className="buttons">
+          <button 
+              type="button"
+              onClick={handleRedirectToRecepies}
+          >
+            Voltar
+          </button>
+          <button 
+            type="submit"
+          >
+            Criar Receita
+          </button>
+        </div>
       </form>
       <span>{errorMessage}</span>
     </ContentContainer>

@@ -127,4 +127,8 @@ export const ContentContainer = styled.main`
 
      
   }
+
+  span{
+    color: var(--white);
+  }
 `;
