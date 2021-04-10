@@ -19,6 +19,8 @@ Sistema Web de cadastro de receitas culinárias, com a finalidade de deixar as r
 
 - Execute o backend antes do frontend para que o sistema possa ter o funcionamento conforme esperado. O backend está rodando na porta 3333.
 
+- Não foi implementado no sistema a responsividade.
+
 ------------
 
 ### Instalação e Execução
